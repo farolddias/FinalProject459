@@ -1,0 +1,20 @@
+// triangle intersection
+
+r1 = Line (P2.point1 , P2.point2)
+r2 = Line (P2.point2 , P2.point3)
+r3 = Line (P2.point3, P2.point1)
+out # = 1 , i n t e r s e c t i o n e x i s t s , 0 no i n t e r s e c t i o n ,
+out 1 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r1 , P1 )
+out 2 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r2 , P1 )
+out 3 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r3 , P1 )
+if ( o ut 1 == 1 ) or ( o ut 2 == 1 ) or ( o ut 3 == 1 ) then
+return 1 
+//intersection exists
+end if
+r1 = Line (P1.point1 , P1.point2)
+r2 = Line (P1.point2 , P1.point3)
+r3 = Line (P1.point3, P1.point1)
+out 1 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r1 , P2 )
+out 2 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r2 , P2 )
+out 3 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r3 , P2 )
+r e t u r n ( o ut 1 == 1 ) or ( o ut 2 == 1 ) or ( o ut 3 == 1 )
