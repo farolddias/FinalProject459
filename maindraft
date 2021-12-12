@@ -1,5 +1,18 @@
-// triangle intersection
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "matmul.h"
 
+// triangle intersection
+int main(int argc, char* argv[] )
+{
+    int i;
+    FILE *fptr;
+    if ((fptr = fopen("mesh.txt", "r")) == NULL) {
+        printf("Error. File cannot be opened.")
+    }
+}
 r1 = Line (P2.point1 , P2.point2)
 r2 = Line (P2.point2 , P2.point3)
 r3 = Line (P2.point3, P2.point1)
@@ -32,4 +45,5 @@ bool CollideCircles(Circle *cA, Circle *cB) {
     float radius = cA->radius + cB->radius;
     float radiusSq = radius * radius;
     return centerDistanceSq <= radiusSq;
+}
 }
