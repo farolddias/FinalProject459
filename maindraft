@@ -1,49 +1,58 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include "matmul.h"
 
-// triangle intersection
+//reading input files
 int main(int argc, char* argv[] )
 {
-    int i;
+    int i, line = 5;
+    char mesh[100];
     FILE *fptr;
     if ((fptr = fopen("mesh.txt", "r")) == NULL) {
-        printf("Error. File cannot be opened.")
+        printf("Error. File cannot be opened.");
+        return 1;
     }
-}
-r1 = Line (P2.point1 , P2.point2)
-r2 = Line (P2.point2 , P2.point3)
-r3 = Line (P2.point3, P2.point1)
-out # = 1 , intersection c t i o n e x i s t s , 0 no i n t e r s e c t i o n ,
-out 1 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r1 , P1 )
-out 2 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r2 , P1 )
-out 3 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r3 , P1 )
-if ( o ut 1 == 1 ) or ( o ut 2 == 1 ) or ( o ut 3 == 1 ) then
-return 1 
-//intersection exists
-end if
-r1 = Line (P1.point1 , P1.point2)
-r2 = Line (P1.point2 , P1.point3)
-r3 = Line (P1.point3, P1.point1)
-out 1 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r1 , P2 )
-out 2 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r2 , P2 )
-out 3 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r3 , P2 )
-r e t u r n ( o ut 1 == 1 ) or ( o ut 2 == 1 ) or ( o ut 3 == 1 )
 
-typedef struct {
-    float centerX;
-    float centerY;
-    float radius;
-} Circle;
+    while(line--){
+    fscanf(fptr,"%s",&mesh[i]);
+    printf("\n%s", &mesh[i]);
+    i++;
+    } 
 
-bool CollideCircles(Circle *cA, Circle *cB) {
-    float x = cA->centerX - cB->centerX;
-    float y = cA->centerY - cB->centerY;
-    float centerDistanceSq = x * x + y * y; // squared distance
-    float radius = cA->radius + cB->radius;
-    float radiusSq = radius * radius;
-    return centerDistanceSq <= radiusSq;
+    fclose(fptr);
+    return 0;
 }
-}
+
+// r1 = Line (P2.point1 , P2.point2)
+// r2 = Line (P2.point2 , P2.point3)
+// r3 = Line (P2.point3, P2.point1)
+// out # = 1 , intersection c t i o n e x i s t s , 0 no i n t e r s e c t i o n ,
+// out 1 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r1 , P1 )
+// out 2 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r2 , P1 )
+// out 3 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r3 , P1 )
+// if ( o ut 1 == 1 ) or ( o ut 2 == 1 ) or ( o ut 3 == 1 ) then
+// return 1 
+// //intersection exists
+// end if
+// r1 = Line (P1.point1 , P1.point2)
+// r2 = Line (P1.point2 , P1.point3)
+// r3 = Line (P1.point3, P1.point1)
+// out 1 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r1 , P2 )
+// out 2 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r2 , P2 )
+// out 3 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r3 , P2 )
+// r e t u r n ( o ut 1 == 1 ) or ( o ut 2 == 1 ) or ( o ut 3 == 1 )
+
+// typedef struct {
+//     float centerX;
+//     float centerY;
+//     float radius;
+// } Circle;
+
+// bool CollideCircles(Circle *cA, Circle *cB) {
+//     float x = cA->centerX - cB->centerX;
+//     float y = cA->centerY - cB->centerY;
+//     float centerDistanceSq = x * x + y * y; // squared distance
+//     float radius = cA->radius + cB->radius;
+//     float radiusSq = radius * radius;
+//     return centerDistanceSq <= radiusSq;
+// }
