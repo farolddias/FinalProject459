@@ -3,23 +3,29 @@
 #include <stdlib.h>
 
 //reading input files
-int main(int argc, char* argv[] )
+int main(int argc, char* argv)
 {
-    int i, line = 5;
-    char mesh[100];
-    FILE *fptr;
-    if ((fptr = fopen("mesh.txt", "r")) == NULL) {
-        printf("Error. File cannot be opened.");
-        return 1;
+    int i;
+    int N = atoi(argv[1]);
+    char *adr = argv[1];
+    FILE *fptr = fopen(adr, "r");
+
+    if (fptr == NULL){
+        printf("No file");
+    }
+    
+    int chr = getc(fptr);
+    while (chr != EOF) {
+        if ((chr == ",") && (chr == "\n")){
+    
+        }
+        chr = getc(fptr);   
     }
 
-    while(line--){
-    fscanf(fptr,"%s",&mesh[i]);
-    printf("\n%s", &mesh[i]);
-    i++;
-    } 
+    int *A = (int*) malloc(N * sizeof(int));
 
-    fclose(fptr);
+    free(A);
+
     return 0;
 }
 
