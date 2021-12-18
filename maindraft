@@ -17,8 +17,6 @@ int main(int argc, char* argv[])
 
     char *line = NULL;  //string_which_stores_line
     size_t read = 0;    //variable_that_stores_max_size_of_line
-    //char* token;
-    //char* end;
 
     if (fptr == NULL){
         printf("No file");
@@ -26,11 +24,15 @@ int main(int argc, char* argv[])
     }
     
     while ((read = getline(&line , &read, fptr)) != -1) {
-        printf("%s\n", line);
-        //token = strtok(line,",");
-        //printf("%s\n", token);
-        //double d1 = strtod(line, &end);
-        //printf("%f\n", d1);
+        //printf("%s\n", line);
+        char* token = strtok(line, ",");
+        while (token != NULL) {
+            //printf("%s\n", token);
+            char* end;
+            double d1 = strtod(token, &end);
+            printf("%f\n", d1);
+            token = strtok(NULL, ",");
+        }
     } 
 
     free(A);
