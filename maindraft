@@ -1,3 +1,5 @@
+#define  _POSIX_C_SOURCE 200809L
+#define  _GNU_SOURCE
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,7 +8,7 @@
 //reading input files
 int main(int argc, char* argv[])
 {
-    int i;
+    //int i;
     int N = atoi(argv[1]);
     char *adr = argv[1];
     FILE *fptr = fopen(adr, "r");
@@ -15,6 +17,8 @@ int main(int argc, char* argv[])
 
     char *line = NULL;  //string_which_stores_line
     size_t read = 0;    //variable_that_stores_max_size_of_line
+    //char* token;
+    //char* end;
 
     if (fptr == NULL){
         printf("No file");
@@ -22,8 +26,11 @@ int main(int argc, char* argv[])
     }
     
     while ((read = getline(&line , &read, fptr)) != -1) {
-        printf("Retrieved line of length %zu :\n", read);
-        printf("%s", line);
+        printf("%s\n", line);
+        //token = strtok(line,",");
+        //printf("%s\n", token);
+        //double d1 = strtod(line, &end);
+        //printf("%f\n", d1);
     } 
 
     free(A);
