@@ -8,43 +8,46 @@
 //reading input files
 int main(int argc, char* argv[])
 {
-    //int i;
-    int N = atoi(argv[1]);
     char *adr = argv[1];
     FILE *fptr = fopen(adr, "r");
-
-    int *A = (int*) malloc(N * sizeof(int));
-
-    char *line = NULL;  //string_which_stores_line
-    size_t read = 0;    //variable_that_stores_max_size_of_line
+    int firstNum;
 
     if (fptr == NULL){
         printf("No file");
         exit(1);
     }
-    
-    while ((read = getline(&line , &read, fptr)) != -1) {
+
+    if(fptr!=NULL){
+        fscanf(fptr, "%d", &firstNum);  //1st line - number of triangles
+    }
+    printf("Number of triangles: %d\n", firstNum);
+
+    double *A = (double*) malloc(firstNum * 9 * sizeof(double)); //creating array with size N
+    printf("size of A: %lu\n", sizeof(A));
+
+    char *line = NULL;  //string_which_stores_line
+    size_t read = 0;    //variable_that_stores_max_size_of_line
+
+    int i;
+    int x = 0;
+    while ((read = getline(&line, &read, fptr)) != -1) {
+        x++;
+        if(x>=2){
         //printf("%s\n", line);
         char* token = strtok(line, ",");
         while (token != NULL) {
-            //printf("%s\n", token);
             char* end;
             double d1 = strtod(token, &end);
-            printf("%f\n", d1);
+            A[i] = d1;
+            printf("%f\n", A[i]);
             token = strtok(NULL, ",");
+        }
         }
     } 
 
     free(A);
     return 0;
 }
-
-
-
-
-
-
-
 
 
 
