@@ -1,5 +1,5 @@
-#define  _POSIX_C_SOURCE 200809L
-#define  _GNU_SOURCE
+//#define  _POSIX_C_SOURCE 200809L
+//#define  _GNU_SOURCE
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,6 +41,7 @@ int main(int argc, char* argv[])
                 triangle[i] = d1;
                 printf("%f\n", triangle[i]);
                 token = strtok(NULL, ",");
+                i++;
             }
         }
     } 
@@ -77,6 +78,7 @@ int main(int argc, char* argv[])
                 sphere[j] = d2;
                 printf("%f\n", sphere[j]);
                 token_s = strtok(NULL, ",");
+                j++;
             }
         }
     free(sphere);
@@ -91,14 +93,11 @@ int main(int argc, char* argv[])
     if (fp == NULL)
     {
         printf("File does not exist.\n");
-        return;
     }
-    
+
     fprintf(fp, "s,t");
-
-
     
-    
+
     fclose(fp);
     free(triangle);    
     return 0;
