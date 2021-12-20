@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     }
     //printf("Number of triangles: %d\n", firstNum);
 
-    double *A = (double*) malloc(firstNum * 9 * sizeof(double)); //creating array with size N
+    double *triangle = (double*) malloc(firstNum * 9 * sizeof(double)); //creating array with size N
 
     char *line = NULL;  //string_which_stores_line
     size_t read = 0;    //variable_that_stores_max_size_of_line
@@ -38,8 +38,8 @@ int main(int argc, char* argv[])
             while (token != NULL) {
                 char* end;
                 double d1 = strtod(token, &end);
-                A[i] = d1;
-                printf("%f\n", A[i]);
+                triangle[i] = d1;
+                printf("%f\n", triangle[i]);
                 token = strtok(NULL, ",");
             }
         }
@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 
     char *sph = argv[2];
     FILE *fptr2 = fopen(sph, "r");
-    double *B;
+    double *sphere;
 
     if (fptr2 == NULL){
         printf("No file");
@@ -67,54 +67,39 @@ int main(int argc, char* argv[])
             //printf("Number of spheres: %d\n", sph_num);
         }
 
-        B = (double*) malloc(sph_num * 3 * sizeof(double)); //creating array with size 
+        sphere = (double*) malloc(sph_num * 3 * sizeof(double)); //creating array with size 
 
         if(c >= 4){
             char* token_s = strtok(line_sph, ",");
             while (token_s != NULL) {
                 char* end;
                 double d2 = strtod(token_s, &end);
-                B[j] = d2;
-                printf("%f\n", B[j]);
+                sphere[j] = d2;
+                printf("%f\n", sphere[j]);
                 token_s = strtok(NULL, ",");
             }
         }
-    free(B);
+    free(sphere);
     }
+ 
+    FILE *fp;
+    char fname[1000];
+
+    /* open for writing */
+    fp = fopen("collision_detection.txt", "w");
+
+    if (fp == NULL)
+    {
+        printf("File does not exist.\n");
+        return;
+    }
+    
+    fprintf(fp, "s,t");
+
+
+    
+    
+    fclose(fp);
+    free(triangle);    
+    return 0;
 }
-
-
-
-// r1 = Line (P2.point1, P2.point2)
-// r2 = Line (P2.point2, P2.point3)
-// r3 = Line (P2.point3, P2.point1)
-// out # = 1 , intersection c t i o n e x i s t s , 0 no i n t e r s e c t i o n ,
-// out 1 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r1 , P1 )
-// out 2 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r2 , P1 )
-// out 3 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r3 , P1 )
-// if ( o ut 1 == 1 ) or ( o ut 2 == 1 ) or ( o ut 3 == 1 ) then
-// return 1 
-// //intersection exists
-// end if
-// r1 = Line (P1.point1 , P1.point2)
-// r2 = Line (P1.point2 , P1.point3)
-// r3 = Line (P1.point3, P1.point1)
-// out 1 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r1 , P2 )
-// out 2 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r2 , P2 )
-// out 3 = C o n f o r m a l I n t e r s e c t S e g m e n t P l a n e ( r3 , P2 )
-// r e t u r n ( o ut 1 == 1 ) or ( o ut 2 == 1 ) or ( o ut 3 == 1 )
-
-// typedef struct {
-//     float centerX;
-//     float centerY;
-//     float radius;
-// } Circle;
-
-// bool CollideCircles(Circle *cA, Circle *cB) {
-//     float x = cA->centerX - cB->centerX;
-//     float y = cA->centerY - cB->centerY;
-//     float centerDistanceSq = x * x + y * y; // squared distance
-//     float radius = cA->radius + cB->radius;
-//     float radiusSq = radius * radius;
-//     return centerDistanceSq <= radiusSq;
-// }
