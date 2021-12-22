@@ -1,9 +1,8 @@
-//#define  _POSIX_C_SOURCE 200809L
-//#define  _GNU_SOURCE
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 //reading input files
 int main(int argc, char* argv[])
@@ -59,10 +58,15 @@ int main(int argc, char* argv[])
     size_t read_sph = 0;    //variable_that_stores_max_size_of_line
     int c=0;
     int sph_num=0;
+    int sph_r=0;
     int j=0;
 
     while ((read_sph = getline(&line_sph, &read_sph, fptr2))!= -1) {
         c++;
+        if (c == 2){
+            sph_r = atoi(line_sph);
+        }
+    
         if (c == 3){
             sph_num = atoi(line_sph);
             //printf("Number of spheres: %d\n", sph_num);
@@ -81,24 +85,44 @@ int main(int argc, char* argv[])
                 j++;
             }
         }
-    free(sphere);
     }
  
     FILE *fp;
-    char fname[1000];
-
     /* open for writing */
     fp = fopen("collision_detection.txt", "w");
-
     if (fp == NULL)
     {
         printf("File does not exist.\n");
     }
-
     fprintf(fp, "s,t");
     
+    //double *SphereID;
+    //double *triangleID;
+    for (j = 0; j < (sph_num * 3); j++) {
+        for (i = 0; i < (firstNum * 9); i+9) {
+            //see if there is intersection between sphere and plane of triangle
+            double Ux=triangle[i+3]-triangle[i];    //vectors of triangle points in x
+            double Vx=triangle[i+6]-triangle[i]; 
+            double Uy=triangle[i+4]-triangle[i+1];    //vectors of triangle points in y
+            double Vy=triangle[i+7]-triangle[i+1]; 
+            double Uz=triangle[i+5]-triangle[i+2];    //vectors of triangle points in z
+            double Vz=triangle[i+8]-triangle[i+2]; 
+            double nx=(Uy*Vz)-(Uz*Vy);      // plane normal
+            double ny=(Uz*Vx)-(Ux*Vz);
+            double nz=(Ux*Vy)-(Uy*Vx);
+            double dist = sqrt( (nx*nx) + (ny*ny) + (nz*nz) ); // normalized
+            nx = nx/dist;
+            ny = ny/dist;
+            nz = nz/dist;
+            dist = abs((sphere[j]-triangle[i])*nx + (sphere[j+1]*triangle[i+1])*ny + (sphere[j+2]*triangle[i+2])*nz); 
+            //if (dist < sph_r){ //collision happens
+
+            //}
+        }
+    }
 
     fclose(fp);
-    free(triangle);    
+    free(triangle); 
+    free(sphere);   
     return 0;
 }
