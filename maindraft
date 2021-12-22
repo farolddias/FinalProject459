@@ -71,14 +71,21 @@ int main(int argc, char* argv[])
             sph_num = atoi(line_sph);
             //printf("Number of spheres: %d\n", sph_num);
         }
+    }
 
-        sphere = (double*) malloc(sph_num * 3 * sizeof(double)); //creating array with size 
+    sphere = (double*) malloc(sph_num * 3 * sizeof(double)); //creating array with size 
+    
+    fclose(fptr2);
+    FILE *fptr3 = fopen(sph, "r");
 
-        if(c >= 4){
+    int w=0;
+    while ((read_sph = getline(&line_sph, &read_sph, fptr3))!= -1) {
+        w++;
+        if(w >= 4){
             char* token_s = strtok(line_sph, ",");
             while (token_s != NULL) {
-                char* end;
-                double d2 = strtod(token_s, &end);
+                char* end1;
+                double d2 = strtod(token_s, &end1);
                 sphere[j] = d2;
                 //printf("%f\n", sphere[j]);
                 token_s = strtok(NULL, ",");
@@ -86,7 +93,7 @@ int main(int argc, char* argv[])
             }
         }
     }
- 
+    
     FILE *fp;
     /* open for writing */
     fp = fopen("collision_detection.txt", "w");
@@ -114,13 +121,16 @@ int main(int argc, char* argv[])
             double Nx = nx/ndist;
             double Ny = ny/ndist;
             double Nz = nz/ndist;
-            double dist = abs((sphere[j]-triangle[i])*Nx + (sphere[j+1]*triangle[i+1])*Ny + (sphere[j+2]*triangle[i+2])*Nz); 
+            double dist = abs((sphere[j]-triangle[i])*Nx + (sphere[j+1]-triangle[i+1])*Ny + (sphere[j+2]-triangle[i+2])*Nz); 
+            //printf("rad: %f\n", sph_r);
+            //printf("dist: %f\n", dist);
             if (dist < sph_r){ //collision happens
                 fprintf(fp, "%d, ", sphere_counter);
                 fprintf(fp, "%d\n", triangle_counter); 
             }
             triangle_counter++;
         }
+
         sphere_counter++;
     }
 
