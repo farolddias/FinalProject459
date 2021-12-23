@@ -134,6 +134,6 @@ int main()
 
     fclose(fp); //close output file
     free(triangle); //deallocate the memory stored in triangle array 
-    free(sphere);   //deallocate the memory stored in sphere array
+    free(sphere);   //deallocate the mermoy stored in sphere array
     return 0;
 }
